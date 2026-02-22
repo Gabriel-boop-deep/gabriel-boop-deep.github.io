@@ -10,6 +10,7 @@ Portfólio interativo de Gabriel Nunes, desenvolvedor web profissional focado em
 
 Este é o meu portfólio pessoal, construído com foco em **performance**, **design estratégico** e **experiência do usuário**. Cada detalhe foi pensado para demonstrar na prática o que entrego aos meus clientes.
 
+
 ### 🎯 Destaques
 
 - **Design futurista** com glassmorphism, partículas e animações fluidas
