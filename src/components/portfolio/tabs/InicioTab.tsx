@@ -221,6 +221,9 @@ const InicioTab = ({ onNavigate }: InicioTabProps) => {
             </div>
           </motion.div>
         </div>
+
+        {/* Video Section */}
+        <VideoSection />
       </div>
     </motion.div>
   );
