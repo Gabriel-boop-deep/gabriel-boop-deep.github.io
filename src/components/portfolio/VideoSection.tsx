@@ -183,7 +183,7 @@ const VideoSection = () => {
           className="text-center mt-12"
         >
           <motion.a
-            href="https://www.youtube.com/@GabrielNunes-rq1kl"
+            href="https://www.youtube.com/@IdeIA-f7l5i"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
