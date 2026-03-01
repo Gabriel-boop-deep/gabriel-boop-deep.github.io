@@ -1,10 +1,78 @@
 import { motion } from "framer-motion";
-import { Youtube, Trophy, Play } from "lucide-react";
+import { Youtube, Play, Trophy, Rocket, Monitor, Video } from "lucide-react";
+
+const videos = [
+  {
+    title: "Seu Próximo Nível",
+    subtitle: "Não vem do treino",
+    embedUrl: "https://www.youtube.com/embed/bvRoZgPVwdM",
+    icon: Rocket,
+    accent: "primary",
+  },
+  {
+    title: "Conheça o FinDash",
+    subtitle: "Dashboard Financeiro",
+    embedUrl: "https://www.youtube.com/embed/_06h9hCnJq8",
+    icon: Monitor,
+    accent: "yellow",
+  },
+  {
+    title: "O GABTUBE",
+    subtitle: "Plataforma de Vídeos",
+    embedUrl: "https://www.youtube.com/embed/2HLG1LC1-ik",
+    icon: Video,
+    accent: "amber",
+  },
+  {
+    title: "Conheça Meu Trabalho",
+    subtitle: "Desenvolvimento Web & IA",
+    embedUrl: "https://www.youtube.com/embed/fGLR5h1n2Fk",
+    icon: Play,
+    accent: "primary",
+  },
+  {
+    title: "Velotech Bike Yourself",
+    subtitle: "Case de Sucesso",
+    embedUrl: "https://www.youtube.com/embed/V7wFONGVRew",
+    icon: Trophy,
+    accent: "yellow",
+    badge: "CASE DE SUCESSO",
+  },
+  {
+    title: "Velotech Continuação",
+    subtitle: "Parte 2 do Projeto",
+    embedUrl: "https://www.youtube.com/embed/IE0kMwtyOfg",
+    icon: Play,
+    accent: "amber",
+    badge: "PARTE 2",
+  },
+];
+
+const accentStyles: Record<string, { border: string; glow: string; badge: string; text: string }> = {
+  primary: {
+    border: "border-primary/30",
+    glow: "0 0 30px hsl(var(--primary) / 0.2)",
+    badge: "bg-gradient-primary text-primary-foreground",
+    text: "text-primary",
+  },
+  yellow: {
+    border: "border-yellow-500/30",
+    glow: "0 0 30px rgba(234, 179, 8, 0.2)",
+    badge: "bg-gradient-to-r from-yellow-500 to-amber-600 text-black",
+    text: "text-yellow-500",
+  },
+  amber: {
+    border: "border-amber-500/30",
+    glow: "0 0 30px rgba(245, 158, 11, 0.2)",
+    badge: "bg-gradient-to-r from-amber-600 to-orange-600 text-black",
+    text: "text-amber-500",
+  },
+};
 
 const VideoSection = () => {
   return (
     <section id="video" className="py-24">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -20,148 +88,112 @@ const VideoSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
-          {/* Main Video */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="glass rounded-3xl p-5 relative overflow-hidden"
-          >
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent animate-[scan_3s_linear_infinite]" />
-
-            <div className="relative rounded-2xl overflow-hidden glow-primary">
-              <div className="aspect-video bg-muted">
-                <iframe
-                  src="https://www.youtube.com/embed/fGLR5h1n2Fk"
-                  title="Gabriel Nunes - Desenvolvimento Web & IA"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-full"
-                />
-              </div>
-            </div>
-
-            <div className="mt-5 text-center">
-              <h3 className="text-lg font-bold text-primary mb-2">
-                Conheça Meu Trabalho
-              </h3>
-              <p className="text-muted-foreground text-xs mb-4">
-                Descubra como transformo ideias em sites profissionais.
-              </p>
-              <motion.a
-                href="https://www.youtube.com/@GabrielNunes-rq1kl"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-primary rounded-full font-semibold text-primary-foreground text-xs"
+        {/* Featured row - 3 new videos */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+          {videos.slice(0, 3).map((video, index) => {
+            const style = accentStyles[video.accent];
+            return (
+              <motion.div
+                key={video.embedUrl}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.15 }}
+                className={`glass rounded-3xl p-5 relative overflow-hidden border ${style.border}`}
               >
-                <Youtube className="w-4 h-4" />
-                Canal no YouTube
-              </motion.a>
-            </div>
-          </motion.div>
+                {video.badge && (
+                  <div className={`absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full ${style.badge} text-[10px] font-bold`}>
+                    <video.icon className="w-3 h-3" />
+                    {video.badge}
+                  </div>
+                )}
 
-          {/* Trophy Video - Velotech */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="glass rounded-3xl p-5 relative overflow-hidden border-2 border-yellow-500/30"
-          >
-            {/* Trophy badge */}
-            <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gradient-to-r from-yellow-500 to-amber-600 text-black text-[10px] font-bold">
-              <Trophy className="w-3 h-3" />
-              CASE DE SUCESSO
-            </div>
+                <div className="relative rounded-2xl overflow-hidden" style={{ boxShadow: style.glow }}>
+                  <div className="aspect-video bg-muted">
+                    <iframe
+                      src={video.embedUrl}
+                      title={video.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      className="w-full h-full"
+                    />
+                  </div>
+                </div>
 
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent animate-[scan_3s_linear_infinite]" />
-
-            <div className="relative rounded-2xl overflow-hidden" style={{ boxShadow: '0 0 40px rgba(234, 179, 8, 0.3)' }}>
-              <div className="aspect-video bg-muted">
-                <iframe
-                  src="https://www.youtube.com/embed/V7wFONGVRew"
-                  title="Velotech Bike Yourself - Case de Sucesso"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-full"
-                />
-              </div>
-            </div>
-
-            <div className="mt-5 text-center">
-              <h3 className="text-lg font-bold mb-2">
-                <span className="text-yellow-500">Velotech</span> Bike Yourself
-              </h3>
-              <p className="text-muted-foreground text-xs mb-4">
-                Site profissional para loja de bicicletas.
-              </p>
-              <motion.a
-                href="https://github.com/Nuono-Cyber/velotechbikeyourself"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-500 to-amber-600 rounded-full font-semibold text-black text-xs"
-              >
-                <Play className="w-4 h-4" />
-                Ver Projeto
-              </motion.a>
-            </div>
-          </motion.div>
-
-          {/* Velotech Part 2 */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="glass rounded-3xl p-5 relative overflow-hidden border-2 border-yellow-500/30"
-          >
-            {/* Continuation badge */}
-            <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-600 to-orange-600 text-black text-[10px] font-bold">
-              <Play className="w-3 h-3" />
-              PARTE 2
-            </div>
-
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent animate-[scan_3s_linear_infinite]" />
-
-            <div className="relative rounded-2xl overflow-hidden" style={{ boxShadow: '0 0 40px rgba(234, 179, 8, 0.25)' }}>
-              <div className="aspect-video bg-muted">
-                <iframe
-                  src="https://www.youtube.com/embed/IE0kMwtyOfg"
-                  title="Velotech Bike Yourself - Parte 2"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-full"
-                />
-              </div>
-            </div>
-
-            <div className="mt-5 text-center">
-              <h3 className="text-lg font-bold mb-2">
-                <span className="text-amber-500">Velotech</span> Continuação
-              </h3>
-              <p className="text-muted-foreground text-xs mb-4">
-                Desenvolvimento e finalização do projeto.
-              </p>
-              <motion.a
-                href="https://youtu.be/IE0kMwtyOfg"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-600 to-orange-600 rounded-full font-semibold text-black text-xs"
-              >
-                <Youtube className="w-4 h-4" />
-                Assistir Parte 2
-              </motion.a>
-            </div>
-          </motion.div>
+                <div className="mt-4 text-center">
+                  <h3 className="text-lg font-bold mb-1">
+                    <span className={style.text}>{video.title}</span>
+                  </h3>
+                  <p className="text-muted-foreground text-xs">{video.subtitle}</p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
+
+        {/* Second row - existing videos */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {videos.slice(3).map((video, index) => {
+            const style = accentStyles[video.accent];
+            return (
+              <motion.div
+                key={video.embedUrl}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.15 }}
+                className={`glass rounded-3xl p-5 relative overflow-hidden border ${style.border}`}
+              >
+                {video.badge && (
+                  <div className={`absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full ${style.badge} text-[10px] font-bold`}>
+                    <video.icon className="w-3 h-3" />
+                    {video.badge}
+                  </div>
+                )}
+
+                <div className="relative rounded-2xl overflow-hidden" style={{ boxShadow: style.glow }}>
+                  <div className="aspect-video bg-muted">
+                    <iframe
+                      src={video.embedUrl}
+                      title={video.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      className="w-full h-full"
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-4 text-center">
+                  <h3 className="text-lg font-bold mb-1">
+                    <span className={style.text}>{video.title}</span>
+                  </h3>
+                  <p className="text-muted-foreground text-xs">{video.subtitle}</p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* YouTube CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-center mt-12"
+        >
+          <motion.a
+            href="https://www.youtube.com/@GabrielNunes-rq1kl"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-primary rounded-full font-semibold text-primary-foreground text-sm"
+          >
+            <Youtube className="w-5 h-5" />
+            Ver Canal no YouTube
+          </motion.a>
+        </motion.div>
       </div>
     </section>
   );
