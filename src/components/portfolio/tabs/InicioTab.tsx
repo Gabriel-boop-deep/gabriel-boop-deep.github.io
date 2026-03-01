@@ -3,6 +3,7 @@ import { ArrowRight, CheckCircle2, Zap, Clock, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import profileImage from "@/assets/profile.jpeg";
+import VideoSection from "@/components/portfolio/VideoSection";
 
 interface InicioTabProps {
   onNavigate: (tab: string) => void;
